@@ -68,15 +68,18 @@ const About = () => {
             as="h2"
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] font-normal leading-[1.3] md:leading-[1.25] tracking-tight text-white font-sans mb-6"
           >
-            I'm Ikhwan Romadon — Pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
+            Saya Ikhwan Romadon, pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
           </SplitLineReveal>
 
           <div className="space-y-4 text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 font-sans font-normal max-w-2xl mb-8">
             <SplitLineReveal delay={0.1}>
-              Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol — menyusun tampilan dengan HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, lalu menyambungkannya ke server sederhana memakai Node.js.
+              Di sekolah saya cukup suka pelajaran Informatika, dan dari situ rasa penasaran saya soal dunia teknologi terus tumbuh. Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol, mulai dari menyusun tampilan dengan HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, sampai menyambungkannya ke server sederhana memakai Node.js.
             </SplitLineReveal>
             <SplitLineReveal delay={0.2}>
-              Saya senang mengulik cara kerja sebuah produk digital secara utuh, dari tampilan yang dilihat pengguna sampai logika yang bekerja di baliknya, dan terus melatih kemampuan lewat proyek-proyek kecil.
+              Saya suka mendalami cara kerja sebuah produk digital secara utuh, dari tampilan yang dilihat pengguna sampai logika yang bekerja di baliknya. Ada semacam kepuasan tersendiri kalau berhasil paham hal yang tadinya bikin bingung.
+            </SplitLineReveal>
+            <SplitLineReveal delay={0.3}>
+              Saya juga orangnya selalu penasaran, senang cari tahu hal-hal baru yang belum saya kuasai, entah itu bahasa pemrograman lain, tools baru, atau sekadar cara developer lain menyelesaikan masalah. Buat saya, belajar coding bukan cuma soal ngoding, tapi juga soal terus melatih cara berpikir lewat proyek-proyek kecil.
             </SplitLineReveal>
           </div>
 
