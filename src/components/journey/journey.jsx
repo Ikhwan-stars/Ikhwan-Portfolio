@@ -17,7 +17,7 @@ const journeyData = [
         organization: 'SMAN 7 Kabupaten Tangerang',
         period: 'Sekarang',
         description:
-          'Menempuh pendidikan menengah atas sambil terus memperdalam kemampuan pemrograman web secara mandiri di luar jam sekolah.',
+          'Menempuh pendidikan menengah atas dan cukup menikmati pelajaran Informatika. Dari sinilah rasa penasaran terhadap dunia teknologi mulai tumbuh, sambil terus memperdalam kemampuan pemrograman web secara mandiri di luar jam sekolah.',
       },
     ],
   },
@@ -34,7 +34,7 @@ const journeyData = [
         organization: 'Belajar Mandiri',
         period: 'Berlangsung',
         description:
-          'Belajar menyusun tampilan web dengan HTML dan CSS, mempercantik dengan Tailwind CSS, lalu menghidupkannya dengan JavaScript untuk membuat interaksi sederhana.',
+          'Belajar menyusun struktur halaman web dengan HTML, mempercantik tampilan dengan CSS dan Tailwind CSS, lalu menghidupkannya dengan JavaScript agar terasa interaktif. Banyak belajar lewat coba-coba, nonton tutorial, dan membedah kode orang lain untuk memahami cara kerjanya.',
       },
     ],
   },
@@ -51,7 +51,7 @@ const journeyData = [
         organization: 'Belajar Mandiri',
         period: 'Berlangsung',
         description:
-          'Mulai eksplorasi Node.js untuk membangun server sederhana, memahami cara front-end dan back-end saling terhubung dalam sebuah aplikasi web.',
+          'Mulai eksplorasi Node.js untuk membangun server sederhana, memahami bagaimana data mengalir antara front-end dan back-end, serta belajar konsep dasar seperti request, response, dan penyimpanan data dalam sebuah aplikasi web.',
       },
     ],
   },
@@ -68,7 +68,7 @@ const journeyData = [
         organization: 'Proyek Pribadi',
         period: 'Berlangsung',
         description:
-          'Terus melatih kemampuan lewat proyek-proyek kecil sebagai bahan belajar sekaligus portofolio, sambil bersiap untuk kesempatan belajar dan berkarya yang lebih besar ke depannya.',
+          'Terus melatih kemampuan lewat proyek-proyek kecil sebagai bahan belajar sekaligus portofolio, sambil terus mencari tahu hal-hal baru yang belum dikuasai. Ke depannya, ingin mengasah kemampuan ini lebih jauh lewat kesempatan belajar dan berkarya yang lebih besar.',
       },
     ],
   },
