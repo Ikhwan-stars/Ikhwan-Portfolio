@@ -2,6 +2,18 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const MainContent = () => {
+  const scrollToAbout = () => {
+    const target = document.getElementById('about');
+    if (!target) return;
+
+    // Pakai Lenis (smooth scroll) kalau tersedia, biar konsisten dengan scroll di seluruh halaman
+    if (window.__lenis) {
+      window.__lenis.scrollTo(target, { offset: 0 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="flex flex-col-reverse md:flex-row items-center justify-center min-h-screen px-6 md:px-8 text-center md:text-left relative overflow-hidden pt-24 md:pt-0 pb-16 md:pb-0">
       {/* Konten Teks */}
@@ -28,13 +40,16 @@ const MainContent = () => {
         </div>
 
         <div className="mt-4 flex justify-center md:justify-start">
-          <motion.div
+          <motion.button
+            type="button"
+            onClick={scrollToAbout}
             initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex flex-col items-center md:items-start w-fit"
+            className="group inline-flex flex-col items-center md:items-start w-fit bg-transparent border-0 cursor-pointer"
+            aria-label="Scroll ke bagian About"
           >
-            <p className="text-sm sm:text-base md:text-lg font-semibold tracking-wider text-gray-200 font-sans">
+            <p className="text-sm sm:text-base md:text-lg font-semibold tracking-wider text-gray-200 font-sans group-hover:text-white transition-colors">
               WEB DEVELOPER &amp; PELAJAR SMAN 7 KAB. TANGERANG
             </p>
             <motion.span
@@ -42,11 +57,33 @@ const MainContent = () => {
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
               style={{ originX: 0 }}
-              className="h-[2px] bg-white mt-1 w-full block"
+              className="h-[2px] bg-white mt-1 w-full block group-hover:bg-gray-300 transition-colors"
             />
-          </motion.div>
+          </motion.button>
         </div>
       </div>
+
+      {/* Indikator scroll ke About, muncul di bawah tengah layar */}
+      <motion.button
+        type="button"
+        onClick={scrollToAbout}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
+        aria-label="Scroll ke bagian About"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0"
+      >
+        <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="block"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.span>
+      </motion.button>
 
       {/* Foto Profil */}
       <motion.div
