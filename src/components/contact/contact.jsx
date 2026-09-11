@@ -5,7 +5,7 @@ import SplitLineReveal from '../animations/SplitLineReveal';
 
 // Ganti email, social link, dan FORMSPREE_ENDPOINT sesuai milik kamu.
 // Daftar gratis di https://formspree.io untuk dapat endpoint form sendiri.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xxxxxxxx';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnpqryzv';
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -45,9 +45,9 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/username' },
-    { name: 'Instagram', url: 'https://www.instagram.com/username/' },
-    { name: 'WhatsApp', url: 'https://wa.me/6281234567890' },
+    { name: 'GitHub', url: 'https://github.com/Ikhwan-stars' },
+    { name: 'Instagram', url: 'https://www.instagram.com/wtf.w4n_/' },
+    { name: 'WhatsApp', url: 'https://wa.me/6283138010670' },
   ];
 
   return (
