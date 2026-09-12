@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 const MainContent = () => {
-  const scrollToAbout = () => {
-    const target = document.getElementById('about');
+  const scrollToSection = (id) => {
+    const target = document.getElementById(id);
     if (!target) return;
 
     // Pakai Lenis (smooth scroll) kalau tersedia, biar konsisten dengan scroll di seluruh halaman
@@ -14,10 +15,24 @@ const MainContent = () => {
     }
   };
 
+  const scrollToAbout = () => scrollToSection('about');
+
   return (
     <div className="flex flex-col-reverse md:flex-row items-center justify-center min-h-screen px-6 md:px-8 text-center md:text-left relative overflow-hidden pt-24 md:pt-0 pb-16 md:pb-0">
+      {/* Background dot-grid halus supaya hero terasa lebih berdimensi */}
+      <div className="absolute inset-0 bg-dot-grid bg-dot-grid-fade opacity-70 pointer-events-none" aria-hidden="true" />
+
       {/* Konten Teks */}
       <div className="mt-8 md:mt-0 md:mr-12 z-10">
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 border border-gray-800 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest text-gray-300"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          Terbuka untuk kolaborasi & magang
+        </motion.span>
         <div className="overflow-hidden">
           <motion.h1
             initial={{ y: 70, opacity: 0 }}
@@ -61,6 +76,29 @@ const MainContent = () => {
             />
           </motion.button>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3"
+        >
+          <button
+            type="button"
+            onClick={() => scrollToSection('projects')}
+            className="group inline-flex items-center gap-2 bg-white hover:bg-gray-200 text-black font-mono text-xs uppercase tracking-widest py-3 px-6 transition-all duration-300 cursor-pointer"
+          >
+            <span>Lihat Proyek</span>
+            <FiArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection('contact')}
+            className="inline-flex items-center gap-2 border border-gray-700 hover:border-white text-white font-mono text-xs uppercase tracking-widest py-3 px-6 transition-all duration-300 cursor-pointer"
+          >
+            <span>Hubungi Saya</span>
+          </button>
+        </motion.div>
       </div>
 
       {/* Indikator scroll ke About, muncul di bawah tengah layar */}
