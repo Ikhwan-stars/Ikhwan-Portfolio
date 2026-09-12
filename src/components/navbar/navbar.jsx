@@ -16,12 +16,10 @@ const navItemVariants = {
 };
 
 const links = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Journey', href: '#journey' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/#home' },
+  { name: 'About', href: '/#about' },
+  { name: 'Journey', href: '/#journey' },
+  { name: 'Contact', href: '/#contact' },
 ];
 
 const Navbar = () => {
@@ -67,7 +65,7 @@ const Navbar = () => {
       initial="hidden"
       animate={showNavbar ? 'visible' : 'hidden'}
       style={{ pointerEvents: showNavbar ? 'auto' : 'none' }}
-      className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 bg-transparent text-white mix-blend-difference px-4 sm:px-6 py-2 flex justify-center items-center gap-5 sm:gap-8 z-50 max-w-[96vw] flex-wrap"
+      className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 bg-transparent text-white mix-blend-difference px-4 sm:px-6 py-2 flex justify-center items-center gap-5 sm:gap-8 z-50 max-w-[96vw]"
     >
       {links.map((item) => (
         <motion.a
