@@ -8,6 +8,8 @@ import Journey from '../components/journey/journey';
 import MainContent from '../components/main/main-content';
 import Navbar from '../components/navbar/navbar';
 import Skills from '../components/skills/skills';
+import Services from '../components/services/services';
+import Projects from '../components/projects/projects';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +45,7 @@ const Home = () => {
         <MainContent />
       </section>
 
-      {/* Layer 2: About + Skills + Journey + Contact, slide menutupi Home */}
+      {/* Layer 2: About + Skills + Services + Projects + Journey + Contact, slide menutupi Home */}
       <div className="relative z-10 w-full bg-black text-white shadow-[0_-30px_80px_rgba(0,0,0,0.85)] border-t border-gray-800/80">
         <section id="about" className="relative w-full min-h-screen">
           <About />
@@ -52,6 +54,10 @@ const Home = () => {
         <section id="skills" className="relative w-full bg-black text-gray-100 border-b border-gray-800/60">
           <Skills />
         </section>
+
+        <Services />
+
+        <Projects />
 
         <Journey />
 
