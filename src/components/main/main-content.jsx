@@ -65,7 +65,7 @@ const MainContent = () => {
             aria-label="Scroll ke bagian About"
           >
             <p className="text-sm sm:text-base md:text-lg font-semibold tracking-wider text-gray-200 font-sans group-hover:text-white transition-colors">
-              WEB DEVELOPER &amp; PELAJAR SMAN 7 KAB. TANGERANG
+              Aspiring Developer
             </p>
             <motion.span
               initial={{ scaleX: 0 }}
