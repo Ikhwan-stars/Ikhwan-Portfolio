@@ -7,6 +7,8 @@ const techStack = [
   'Tailwind CSS',
   'Node.js',
   'React',
+  'Astro',
+  'Supabase',
   'Vite',
   'Git',
 ];
