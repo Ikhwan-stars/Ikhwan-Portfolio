@@ -56,7 +56,7 @@ const About = () => {
         <div className="lg:w-3/5 w-full text-left">
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-gray-400 uppercase font-semibold">
-              ABOUT
+              // 01 ABOUT
             </span>
             <span className="h-[1px] w-8 bg-gray-700 hidden sm:block" />
             <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
