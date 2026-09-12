@@ -12,20 +12,20 @@ const services = [
     tags: ['React', 'Tailwind CSS', 'Responsive UI'],
   },
   {
-    icon: FiCode,
+    icon: FiServer,
     number: '02',
-    title: 'Interaksi & Animasi',
+    title: 'Back-End & REST API',
     description:
-      'Menambahkan micro-interaction dan animasi scroll yang halus supaya sebuah halaman terasa hidup, bukan cuma statis.',
-    tags: ['GSAP', 'Framer Motion', 'Scroll Animation'],
+      'Merancang dan membangun REST API dari nol dengan Node.js — mulai dari struktur endpoint, penanganan request/response, sampai deployment ke production.',
+    tags: ['Node.js', 'REST API', 'Vercel'],
   },
   {
-    icon: FiServer,
+    icon: FiCode,
     number: '03',
-    title: 'Dasar Back-End',
+    title: 'Integrasi & Tools',
     description:
-      'Belajar menyambungkan front-end ke server sederhana dengan Node.js, memahami alur data lewat request dan response.',
-    tags: ['Node.js', 'REST API', 'Basic Logic'],
+      'Menghubungkan aplikasi ke layanan pihak ketiga seperti GitHub API dan Supabase, serta membangun tools kecil yang mempermudah workflow sehari-hari.',
+    tags: ['GitHub API', 'Supabase', 'Astro'],
   },
   {
     icon: FiRefreshCw,
