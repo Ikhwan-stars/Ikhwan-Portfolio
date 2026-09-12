@@ -59,7 +59,7 @@ const Contact = () => {
         <div className="mb-10 sm:mb-16 md:mb-20 lg:mb-24">
           <div className="flex items-center gap-3 mb-3 sm:mb-5">
             <span className="text-xs sm:text-sm font-mono tracking-widest text-gray-400 uppercase">
-              CONTACT
+              // 06 CONTACT
             </span>
             <span className="h-[1px] w-12 bg-gray-800" />
           </div>
