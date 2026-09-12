@@ -3,7 +3,7 @@ import { FiArrowUp } from 'react-icons/fi';
 
 const Footer = () => {
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/username' },
+    { name: 'GitHub', url: 'https://github.com/Ikhwan-stars' },
     { name: 'Instagram', url: 'https://www.instagram.com/username/' },
     { name: 'WhatsApp', url: 'https://wa.me/6281234567890' },
   ];
