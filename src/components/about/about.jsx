@@ -73,7 +73,7 @@ const About = () => {
 
           <div className="space-y-4 text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 font-sans font-normal max-w-2xl mb-8">
             <SplitLineReveal delay={0.1}>
-              Di sekolah saya cukup suka pelajaran Informatika, dan dari situ rasa penasaran saya soal dunia teknologi terus tumbuh. Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol, mulai dari menyusun tampilan dengan HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, sampai menyambungkannya ke server sederhana memakai Node.js.
+              Di sekolah saya cukup suka pelajaran Informatika, dan dari situ rasa penasaran saya soal dunia teknologi terus tumbuh. Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol, mulai dari menyusun tampilan dengan HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, sampai merancang REST API sendiri dengan Node.js dan menghubungkannya ke layanan lain seperti GitHub API dan Supabase.
             </SplitLineReveal>
             <SplitLineReveal delay={0.2}>
               Saya suka mendalami cara kerja sebuah produk digital secara utuh, dari tampilan yang dilihat pengguna sampai logika yang bekerja di baliknya. Ada semacam kepuasan tersendiri kalau berhasil paham hal yang tadinya bikin bingung.
@@ -94,7 +94,7 @@ const About = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span className="text-gray-200 uppercase tracking-wider font-semibold">Belajar Back-End</span>
+              <span className="text-gray-200 uppercase tracking-wider font-semibold">Back-End & API</span>
             </div>
           </div>
         </div>
