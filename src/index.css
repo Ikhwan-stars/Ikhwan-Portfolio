@@ -13,6 +13,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -24,6 +25,19 @@ html {
 body {
   @apply bg-black text-gray-100 transition-colors duration-300;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Halus banget noise/grain di seluruh halaman biar nggak terasa "flat" — ciri khas portofolio kelas atas */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
@@ -42,6 +56,44 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
+/* Pola titik halus untuk background section — dipakai lewat class .bg-dot-grid */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.bg-dot-grid-fade {
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+}
+
+/* Kartu dengan efek "spotlight" mengikuti hover, dipakai di Services & Projects */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.08), transparent 60%);
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.text-gradient {
+  background: linear-gradient(115deg, #ffffff 20%, #7a7a7a 55%, #ffffff 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 @keyframes marqueeRight {
   0% { transform: translate3d(-50%, 0, 0); }
   100% { transform: translate3d(0%, 0, 0); }
@@ -58,7 +110,17 @@ button:focus-visible {
   animation-play-state: paused;
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-marquee-right { animation: none; }
+  .animate-fade-in-up { animation: none; }
 }
