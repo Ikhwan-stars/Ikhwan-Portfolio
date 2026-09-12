@@ -42,8 +42,8 @@ const journeyData = [
     id: 'backend',
     year: '02',
     periodLabel: 'Belajar Mandiri',
-    headline: 'Eksplorasi Back-End dengan Node.js',
-    summary: 'Server Sederhana & Logika Aplikasi',
+    headline: 'Merancang REST API dengan Node.js',
+    summary: 'Desain Endpoint & Integrasi Layanan Pihak Ketiga',
     items: [
       {
         category: 'Experience',
@@ -51,7 +51,7 @@ const journeyData = [
         organization: 'Belajar Mandiri',
         period: 'Berlangsung',
         description:
-          'Mulai eksplorasi Node.js untuk membangun server sederhana, memahami bagaimana data mengalir antara front-end dan back-end, serta belajar konsep dasar seperti request, response, dan penyimpanan data dalam sebuah aplikasi web.',
+          'Mulai membangun REST API sendiri dengan Node.js, mendesain struktur endpoint per kategori, dan menghubungkannya ke layanan lain seperti GitHub API dan Supabase. Dari sini saya makin paham alur data dari request sampai response, dan cara menjaga API tetap rapi saat jumlah fiturnya bertambah.',
       },
     ],
   },
@@ -68,7 +68,7 @@ const journeyData = [
         organization: 'Proyek Pribadi',
         period: 'Berlangsung',
         description:
-          'Terus melatih kemampuan lewat proyek-proyek kecil sebagai bahan belajar sekaligus portofolio, sambil terus mencari tahu hal-hal baru yang belum dikuasai. Ke depannya, ingin mengasah kemampuan ini lebih jauh lewat kesempatan belajar dan berkarya yang lebih besar.',
+          'Mulai membangun proyek nyata seperti Kyoto API (REST API dengan 30+ endpoint), RepoHub (dashboard untuk mengelola repository GitHub), dan Archie (arsip pribadi berbasis Astro & Supabase) sebagai bahan belajar sekaligus portofolio. Ke depannya, ingin mengasah kemampuan ini lebih jauh lewat kesempatan belajar dan berkarya yang lebih besar.',
       },
     ],
   },
