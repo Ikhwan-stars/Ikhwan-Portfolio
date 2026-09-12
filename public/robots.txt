@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ikhwanromadon.vercel.app/sitemap.xml
