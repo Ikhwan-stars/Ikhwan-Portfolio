@@ -11,7 +11,7 @@ const Contact = () => {
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const email = 'ikhwan.romadon@email.com';
+  const email = 'ikhwan.romadon63@sma.belajar.id';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
