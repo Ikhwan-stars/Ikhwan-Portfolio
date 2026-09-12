@@ -96,7 +96,7 @@ const Journey = () => {
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-xs sm:text-sm font-mono font-bold tracking-widest text-gray-400 uppercase">
-              // 02 JOURNEY
+              // 05 JOURNEY
             </span>
             <span className="h-[1px] w-12 bg-gray-700" />
           </div>
