@@ -68,7 +68,7 @@ const About = () => {
             as="h2"
             className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] font-normal leading-[1.3] md:leading-[1.25] tracking-tight text-white font-sans mb-6"
           >
-            Saya Ikhwan Romadon, pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
+            Saya Ikhwan Romadon, Pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
           </SplitLineReveal>
 
           <div className="space-y-4 text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 font-sans font-normal max-w-2xl mb-8">
