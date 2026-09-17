@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FiLayout, FiCode, FiServer, FiRefreshCw, FiArrowUpRight } from 'react-icons/fi';
+import React, { useRef } from 'react';
+import { FiLayout, FiCode, FiServer, FiRefreshCw } from 'react-icons/fi';
 import SplitLineReveal from '../animations/SplitLineReveal';
 
 const services = [
@@ -7,130 +7,118 @@ const services = [
     icon: FiLayout,
     number: '01',
     title: 'Front-End Development',
-    description: 'Membangun tampilan web yang rapi, responsif, dan enak dipakai di semua ukuran layar memakai HTML, CSS, Tailwind CSS, dan React.',
+    description:
+      'Membangun tampilan web yang rapi, responsif, dan enak dipakai di semua ukuran layar memakai HTML, CSS, Tailwind CSS, dan React.',
     tags: ['React', 'Tailwind CSS', 'Responsive UI'],
   },
   {
     icon: FiServer,
     number: '02',
     title: 'Back-End & REST API',
-    description: 'Merancang dan membangun REST API dari nol dengan Node.js — struktur endpoint, penanganan request/response, sampai deployment produksi.',
+    description:
+      'Merancang dan membangun REST API dari nol dengan Node.js — mulai dari struktur endpoint, penanganan request/response, sampai deployment ke production.',
     tags: ['Node.js', 'REST API', 'Vercel'],
   },
   {
     icon: FiCode,
     number: '03',
     title: 'Integrasi & Tools',
-    description: 'Menghubungkan aplikasi ke layanan pihak ketiga seperti GitHub API dan Supabase, serta membangun tools kecil untuk mempermudah workflow.',
+    description:
+      'Menghubungkan aplikasi ke layanan pihak ketiga seperti GitHub API dan Supabase, serta membangun tools kecil yang mempermudah workflow sehari-hari.',
     tags: ['GitHub API', 'Supabase', 'Astro'],
   },
   {
     icon: FiRefreshCw,
     number: '04',
     title: 'Belajar Berkelanjutan',
-    description: 'Terus mengasah kemampuan lewat proyek kecil, eksplorasi tools baru, dan membaca cara developer lain menyelesaikan masalah.',
+    description:
+      'Terus mengasah kemampuan lewat proyek kecil, eksplorasi tools baru, dan membaca cara developer lain menyelesaikan masalah.',
     tags: ['Git & GitHub', 'Problem Solving', 'Self-Taught'],
   },
 ];
 
-const ServiceRow = ({ service, isOpen, onToggle }) => {
+const ServiceCard = ({ service }) => {
+  const cardRef = useRef(null);
   const Icon = service.icon;
+
+  const handleMouseMove = (e) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
+
   return (
     <div
-      className="group border-b cursor-pointer transition-colors duration-300"
-      style={{ borderColor: 'rgba(243,240,232,0.12)' }}
-      onClick={onToggle}
-      data-cursor-hover
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      className="spotlight-card group relative p-6 sm:p-8 border border-gray-800 bg-gray-950/40 hover:border-gray-600 transition-colors duration-300 flex flex-col h-full"
     >
-      <div className="flex items-center gap-4 sm:gap-8 py-6 sm:py-8">
-        <span className="font-mono text-xs sm:text-sm w-8 shrink-0" style={{ color: isOpen ? 'var(--color-accent)' : 'rgba(243,240,232,0.35)' }}>
+      <div className="flex items-start justify-between mb-8">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-gray-700 flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors duration-300">
+          <Icon className="w-5 h-5" />
+        </div>
+        <span className="font-mono text-xs text-gray-600 group-hover:text-gray-400 transition-colors">
           {service.number}
         </span>
-
-        <div
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300"
-          style={{
-            borderColor: isOpen ? 'var(--color-accent)' : 'rgba(243,240,232,0.2)',
-            background: isOpen ? 'var(--color-accent)' : 'transparent',
-            color: isOpen ? 'var(--color-ink)' : 'var(--color-paper)',
-          }}
-        >
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-        </div>
-
-        <h3 className="flex-1 font-heading font-bold text-lg sm:text-2xl md:text-3xl tracking-tight text-paper transition-transform duration-300 group-hover:translate-x-1">
-          {service.title}
-        </h3>
-
-        <FiArrowUpRight
-          className="w-5 h-5 shrink-0 transition-transform duration-300"
-          style={{ color: 'var(--color-accent)', transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
-        />
       </div>
 
-      <div
-        className="overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        style={{ maxHeight: isOpen ? '220px' : '0px' }}
-      >
-        <div className="pb-7 sm:pb-9 pl-12 sm:pl-24 pr-4 sm:pr-16">
-          <p className="text-sm sm:text-base text-paper/55 leading-relaxed max-w-2xl mb-4">{service.description}</p>
-          <div className="flex flex-wrap gap-2">
-            {service.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 border"
-                style={{ borderColor: 'rgba(243,240,232,0.18)', color: 'var(--color-paper)' }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+      <h3 className="text-lg sm:text-xl font-bold font-heading text-white mb-3 tracking-tight">
+        {service.title}
+      </h3>
+      <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-1">{service.description}</p>
+
+      <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-800/80">
+        {service.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-gray-400 px-2.5 py-1 border border-gray-800 group-hover:border-gray-600 transition-colors"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
     </div>
   );
 };
 
 const Services = () => {
-  const [openIndex, setOpenIndex] = useState(0);
-
   return (
     <section
       id="services"
-      className="relative py-24 md:py-32 px-6 sm:px-10 md:px-16 lg:pl-32 lg:pr-16 border-b overflow-hidden"
-      style={{ background: 'var(--color-ink)', borderColor: 'rgba(243,240,232,0.1)' }}
+      className="relative py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-16 bg-black text-white border-b border-gray-800/60 overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto lg:mx-0">
-        <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--color-accent)' }}>03 / What I Do</span>
-            </div>
+      <div className="absolute inset-0 bg-dot-grid bg-dot-grid-fade opacity-60 pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-xs sm:text-sm font-mono font-bold tracking-widest text-gray-400 uppercase">
+              // 03 SERVICES
+            </span>
+            <span className="h-[1px] w-12 bg-gray-700" />
+          </div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <SplitLineReveal
               as="h2"
-              className="font-display font-medium leading-[1] text-paper"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.75rem)' }}
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white font-display uppercase"
             >
-              Skillset saat ini.
+              What I Do
+            </SplitLineReveal>
+            <SplitLineReveal
+              as="p"
+              delay={0.15}
+              className="text-xs sm:text-sm md:text-base text-gray-400 max-w-lg font-sans font-medium leading-relaxed"
+            >
+              Hal-hal yang sedang saya pelajari dan bisa saya kerjakan sejauh ini sebagai calon web developer.
             </SplitLineReveal>
           </div>
-          <SplitLineReveal
-            as="p"
-            delay={0.1}
-            className="text-xs sm:text-sm md:text-base text-paper/50 max-w-xs font-sans leading-relaxed"
-          >
-            Hal-hal yang sedang saya pelajari dan bisa saya kerjakan sejauh ini sebagai calon web developer.
-          </SplitLineReveal>
         </div>
 
-        <div>
-          {services.map((service, idx) => (
-            <ServiceRow
-              key={service.number}
-              service={service}
-              isOpen={openIndex === idx}
-              onToggle={() => setOpenIndex((prev) => (prev === idx ? -1 : idx))}
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {services.map((service) => (
+            <ServiceCard key={service.number} service={service} />
           ))}
         </div>
       </div>
