@@ -5,16 +5,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * SplitLineReveal: memecah teks jadi kata-kata dengan wrapper overflow-hidden,
- * lalu menganimasikannya meluncur naik saat discroll ke viewport.
+ * SplitLineReveal: splits text into words wrapped with overflow-hidden,
+ * then animates them sliding up + slight 3D rotation as they enter the
+ * viewport. Uses GSAP ScrollTrigger (play-once) for consistent timing
+ * regardless of scroll speed.
  */
 export const SplitLineReveal = ({
   children,
   as: Component = 'div',
   className = '',
+  style,
   delay = 0,
-  stagger = 0.08,
-  duration = 0.9,
+  stagger = 0.06,
+  duration = 0.85,
   start = 'top 88%',
 }) => {
   const containerRef = useRef(null);
@@ -29,7 +32,7 @@ export const SplitLineReveal = ({
     const ctx = gsap.context(() => {
       gsap.fromTo(
         inners,
-        { yPercent: 120, opacity: 0, rotateX: 10 },
+        { yPercent: 115, opacity: 0, rotateX: 8 },
         {
           yPercent: 0,
           opacity: 1,
@@ -67,7 +70,7 @@ export const SplitLineReveal = ({
   };
 
   return (
-    <Component ref={containerRef} className={`split-reveal-container ${className}`}>
+    <Component ref={containerRef} className={`split-reveal-container ${className}`} style={style}>
       {renderContent()}
     </Component>
   );
