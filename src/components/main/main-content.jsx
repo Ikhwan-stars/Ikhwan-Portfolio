@@ -1,162 +1,162 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowUpRight } from 'react-icons/fi';
-import { useMagnetic } from '../../hooks/useMagnetic';
-
-const charVariants = {
-  hidden: { yPercent: 130, rotate: 6 },
-  visible: (i) => ({
-    yPercent: 0,
-    rotate: 0,
-    transition: { duration: 0.9, delay: 0.25 + i * 0.03, ease: [0.16, 1, 0.3, 1] },
-  }),
-};
-
-const KineticWord = ({ word, baseDelay = 0 }) => (
-  <span className="inline-flex overflow-hidden pb-[0.08em]">
-    {word.split('').map((ch, i) => (
-      <motion.span
-        key={i}
-        custom={i + baseDelay}
-        variants={charVariants}
-        initial="hidden"
-        animate="visible"
-        className="inline-block will-change-transform"
-      >
-        {ch}
-      </motion.span>
-    ))}
-  </span>
-);
 
 const MainContent = () => {
-  const orbitRef = useRef(null);
-  const ctaRef = useMagnetic(10);
-  const ctaRef2 = useMagnetic(10);
-
-  useEffect(() => {
-    let raf;
-    let angle = 0;
-    const spin = () => {
-      angle += 0.12;
-      if (orbitRef.current) orbitRef.current.style.transform = `rotate(${angle}deg)`;
-      raf = requestAnimationFrame(spin);
-    };
-    raf = requestAnimationFrame(spin);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
   const scrollToSection = (id) => {
     const target = document.getElementById(id);
     if (!target) return;
+
+    // Pakai Lenis (smooth scroll) kalau tersedia, biar konsisten dengan scroll di seluruh halaman
     if (window.__lenis) {
-      window.__lenis.scrollTo(target, { offset: 0, duration: 1.3 });
+      window.__lenis.scrollTo(target, { offset: 0 });
     } else {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
+  const scrollToAbout = () => scrollToSection('about');
+
   return (
-    <div className="relative w-full min-h-screen flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:pl-32 lg:pr-16 pt-28 pb-16 overflow-hidden">
-      <div className="absolute inset-0 bg-fine-grid bg-fine-grid-fade opacity-80 pointer-events-none" aria-hidden="true" />
+    <div className="flex flex-col-reverse md:flex-row items-center justify-center min-h-screen px-6 md:px-8 text-center md:text-left relative overflow-hidden pt-24 md:pt-0 pb-16 md:pb-0">
+      {/* Background dot-grid halus supaya hero terasa lebih berdimensi */}
+      <div className="absolute inset-0 bg-dot-grid bg-dot-grid-fade opacity-70 pointer-events-none" aria-hidden="true" />
 
-      {/* Oversized ghost numeral in background for depth */}
-      <span
-        className="absolute -right-10 top-1/2 -translate-y-1/2 font-display text-outline select-none pointer-events-none hidden md:block"
-        style={{ fontSize: 'min(48vw, 620px)', lineHeight: 0.8 }}
-        aria-hidden="true"
-      >
-        01
-      </span>
-
-      <div className="relative z-10 max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, x: -12 }}
-          animate={{ opacity: 1, x: 0 }}
+      {/* Konten Teks */}
+      <div className="mt-8 md:mt-0 md:mr-12 z-10">
+        <motion.span
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05 }}
-          className="flex items-center gap-3 mb-6 sm:mb-8"
+          className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 border border-gray-800 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-widest text-gray-300"
         >
-          <span className="relative w-3 h-3 flex items-center justify-center">
-            <span className="absolute w-3 h-3 rounded-full pulse-dot" style={{ background: 'var(--color-accent)' }} />
-          </span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-paper/60">
-            Aspiring Web Developer &middot; Tangerang, ID
-          </span>
-        </motion.div>
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          Terbuka untuk kolaborasi & magang
+        </motion.span>
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: 70, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide leading-tight text-white font-display"
+          >
+            IKHWAN
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden mt-1">
+          <motion.h1
+            initial={{ y: 70, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide leading-tight text-white font-display"
+          >
+            ROMADON
+          </motion.h1>
+        </div>
 
-        <h1 className="font-display font-medium leading-[0.92] text-paper" style={{ fontSize: 'clamp(2.75rem, 9vw, 8rem)' }}>
-          <div><KineticWord word="Ikhwan" /></div>
-          <div className="italic" style={{ color: 'var(--color-accent)' }}>
-            <KineticWord word="Romadon." baseDelay={7} />
-          </div>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 sm:mt-8 max-w-lg text-sm sm:text-base md:text-lg text-paper/65 leading-relaxed font-sans"
-        >
-          Pelajar SMA yang membangun kemampuan Front-End &amp; Back-End dari nol —
-          menyusun antarmuka, merancang REST API, dan belajar satu proyek nyata pada satu waktu.
-        </motion.p>
+        <div className="mt-4 flex justify-center md:justify-start">
+          <motion.button
+            type="button"
+            onClick={scrollToAbout}
+            initial={{ x: -30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="group inline-flex flex-col items-center md:items-start w-fit bg-transparent border-0 cursor-pointer"
+            aria-label="Scroll ke bagian About"
+          >
+            <p className="text-sm sm:text-base md:text-lg font-semibold tracking-wider text-gray-200 font-sans group-hover:text-white transition-colors">
+              Aspiring Developer
+            </p>
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              style={{ originX: 0 }}
+              className="h-[2px] bg-white mt-1 w-full block group-hover:bg-gray-300 transition-colors"
+            />
+          </motion.button>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-9 sm:mt-11 flex flex-wrap items-center gap-4"
+          transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-3"
         >
           <button
-            ref={ctaRef}
             type="button"
-            data-cursor-hover
             onClick={() => scrollToSection('projects')}
-            className="magnetic group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest py-3.5 px-7 transition-colors duration-300"
-            style={{ background: 'var(--color-accent)', color: 'var(--color-ink)' }}
+            className="group inline-flex items-center gap-2 bg-white hover:bg-gray-200 text-black font-mono text-xs uppercase tracking-widest py-3 px-6 transition-all duration-300 cursor-pointer"
           >
             <span>Lihat Proyek</span>
             <FiArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
           </button>
           <button
-            ref={ctaRef2}
             type="button"
-            data-cursor-hover
             onClick={() => scrollToSection('contact')}
-            className="magnetic inline-flex items-center gap-2 border font-mono text-xs uppercase tracking-widest py-3.5 px-7 transition-colors duration-300 hover:text-[var(--color-accent)]"
-            style={{ borderColor: 'rgba(243,240,232,0.25)' }}
+            className="inline-flex items-center gap-2 border border-gray-700 hover:border-white text-white font-mono text-xs uppercase tracking-widest py-3 px-6 transition-all duration-300 cursor-pointer"
           >
             <span>Hubungi Saya</span>
           </button>
         </motion.div>
       </div>
 
-      {/* Rotating orbit badge with framed portrait, offset lower-right */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute right-6 sm:right-12 md:right-16 lg:right-24 bottom-10 sm:bottom-16 md:bottom-20 z-10 hidden sm:block"
+      {/* Indikator scroll ke About, muncul di bawah tengah layar */}
+      <motion.button
+        type="button"
+        onClick={scrollToAbout}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
+        aria-label="Scroll ke bagian About"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0"
       >
-        <div className="relative w-28 h-28 md:w-36 md:h-36">
-          <svg ref={orbitRef} viewBox="0 0 100 100" className="absolute inset-0 w-full h-full will-change-transform">
-            <defs>
-              <path id="circlePath" d="M 50, 50 m -38, 0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0" />
-            </defs>
-            <text fontSize="6.2" letterSpacing="1.5" fill="rgba(243,240,232,0.55)" className="font-mono uppercase">
-              <textPath href="#circlePath">
-                &#8226; SCROLL DOWN &#8226; OPEN TO WORK &#8226; SCROLL DOWN &#8226; OPEN TO WORK
-              </textPath>
-            </text>
+        <span className="text-[10px] font-mono uppercase tracking-widest">Scroll</span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="block"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <div
-            className="absolute inset-[18%] rounded-full flex items-center justify-center cursor-pointer"
-            style={{ background: 'var(--color-accent)' }}
-            onClick={() => scrollToSection('about')}
-            data-cursor-hover
-          >
-            <FiArrowUpRight className="w-5 h-5 md:w-6 md:h-6 rotate-90" style={{ color: 'var(--color-ink)' }} />
-          </div>
+        </motion.span>
+      </motion.button>
+
+      {/* Foto Profil */}
+      <motion.div
+        initial={{ scale: 0.88, y: 30, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-40 h-52 sm:w-48 sm:h-64 md:w-56 md:h-72 group cursor-pointer mb-6 md:mb-0 z-0"
+      >
+        {/* Ganti /images/profile.jpg dengan foto kamu */}
+        <img
+          src="/images/profile.jpg"
+          alt=""
+          aria-hidden="true"
+          width="224"
+          height="288"
+          fetchpriority="high"
+          decoding="sync"
+          className="absolute top-3 left-3 opacity-20 w-full h-full object-cover transition-all duration-500 group-hover:top-0 group-hover:left-0 pointer-events-none"
+          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+        />
+        <div className="relative z-10 w-full h-full transition-all duration-500 group-hover:scale-105 bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden">
+          <img
+            src="/images/profile.jpg"
+            alt="Ikhwan Romadon - Web Developer"
+            width="224"
+            height="288"
+            fetchpriority="high"
+            decoding="sync"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.nextSibling.style.display = 'flex';
+            }}
+          />
+          <span className="hidden font-display text-5xl text-white select-none">IR</span>
         </div>
       </motion.div>
     </div>
