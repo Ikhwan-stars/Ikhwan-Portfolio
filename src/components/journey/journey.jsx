@@ -1,238 +1,176 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FiArrowUpRight, FiMinus, FiPlus } from 'react-icons/fi';
 import SplitLineReveal from '../animations/SplitLineReveal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const journeyData = [
   {
     id: 'sekolah',
     year: 'SMAN 7',
-    periodLabel: 'Pendidikan',
     headline: 'Menempuh Pendidikan di SMAN 7 Kabupaten Tangerang',
-    summary: 'Siswa Aktif • Belajar Dasar Ilmu Komputer',
-    items: [
-      {
-        category: 'Education',
-        role: 'Siswa',
-        organization: 'SMAN 7 Kabupaten Tangerang',
-        period: 'Sekarang',
-        description:
-          'Menempuh pendidikan menengah atas dan cukup menikmati pelajaran Informatika. Dari sinilah rasa penasaran terhadap dunia teknologi mulai tumbuh, sambil terus memperdalam kemampuan pemrograman web secara mandiri di luar jam sekolah.',
-      },
-    ],
+    summary: 'Siswa Aktif · Belajar Dasar Ilmu Komputer',
+    category: 'Education',
+    period: 'Sekarang',
+    description: 'Menempuh pendidikan menengah atas dan cukup menikmati pelajaran Informatika. Dari sinilah rasa penasaran terhadap dunia teknologi mulai tumbuh, sambil terus memperdalam kemampuan pemrograman web secara mandiri di luar jam sekolah.',
   },
   {
     id: 'frontend',
     year: '01',
-    periodLabel: 'Belajar Mandiri',
     headline: 'Membangun Dasar Front-End Development',
     summary: 'HTML, CSS, JavaScript & Tailwind CSS',
-    items: [
-      {
-        category: 'Experience',
-        role: 'Self-Taught Front-End Developer',
-        organization: 'Belajar Mandiri',
-        period: 'Berlangsung',
-        description:
-          'Belajar menyusun struktur halaman web dengan HTML, mempercantik tampilan dengan CSS dan Tailwind CSS, lalu menghidupkannya dengan JavaScript agar terasa interaktif. Banyak belajar lewat coba-coba, nonton tutorial, dan membedah kode orang lain untuk memahami cara kerjanya.',
-      },
-    ],
+    category: 'Experience',
+    period: 'Berlangsung',
+    description: 'Belajar menyusun struktur halaman web dengan HTML, mempercantik tampilan dengan CSS dan Tailwind CSS, lalu menghidupkannya dengan JavaScript. Banyak belajar lewat coba-coba, tutorial, dan membedah kode orang lain.',
   },
   {
     id: 'backend',
     year: '02',
-    periodLabel: 'Belajar Mandiri',
     headline: 'Merancang REST API dengan Node.js',
-    summary: 'Desain Endpoint & Integrasi Layanan Pihak Ketiga',
-    items: [
-      {
-        category: 'Experience',
-        role: 'Self-Taught Back-End Developer',
-        organization: 'Belajar Mandiri',
-        period: 'Berlangsung',
-        description:
-          'Mulai membangun REST API sendiri dengan Node.js, mendesain struktur endpoint per kategori, dan menghubungkannya ke layanan lain seperti GitHub API dan Supabase. Dari sini saya makin paham alur data dari request sampai response, dan cara menjaga API tetap rapi saat jumlah fiturnya bertambah.',
-      },
-    ],
+    summary: 'Desain Endpoint & Integrasi Layanan',
+    category: 'Experience',
+    period: 'Berlangsung',
+    description: 'Mulai membangun REST API sendiri dengan Node.js, mendesain struktur endpoint per kategori, dan menghubungkannya ke layanan seperti GitHub API dan Supabase. Dari sini saya makin paham alur data dari request sampai response.',
   },
   {
     id: 'proyek',
     year: '03',
-    periodLabel: 'Sekarang',
     headline: 'Membangun Proyek Pribadi',
     summary: 'Portofolio & Latihan Berkelanjutan',
-    items: [
-      {
-        category: 'Programs & Events',
-        role: 'Personal Project Builder',
-        organization: 'Proyek Pribadi',
-        period: 'Berlangsung',
-        description:
-          'Mulai membangun proyek nyata seperti Kyoto API (REST API dengan 30+ endpoint), RepoHub (dashboard untuk mengelola repository GitHub), dan Archie (arsip pribadi berbasis Astro & Supabase) sebagai bahan belajar sekaligus portofolio. Ke depannya, ingin mengasah kemampuan ini lebih jauh lewat kesempatan belajar dan berkarya yang lebih besar.',
-      },
-    ],
+    category: 'Programs & Events',
+    period: 'Berlangsung',
+    description: 'Mulai membangun proyek nyata seperti Kyoto API, RepoHub, dan Archie sebagai bahan belajar sekaligus portofolio. Ke depannya, ingin mengasah kemampuan ini lebih jauh lewat kesempatan belajar dan berkarya yang lebih besar.',
   },
 ];
 
-const categoryBadgeStyles = {
-  Experience: 'bg-white text-black font-semibold',
-  Education: 'bg-gray-800 text-gray-100 border border-gray-700 font-medium',
-  'Programs & Events': 'bg-gray-800 text-gray-200 border border-gray-700 font-medium',
+const catColor = {
+  Experience: 'var(--color-accent)',
+  Education: '#ff6b3d',
+  'Programs & Events': '#7a9bff',
 };
 
-const Journey = () => {
-  const [activeYear, setActiveYear] = useState(journeyData[0].year);
+const JourneyItem = ({ period, isOpen, onToggle }) => (
+  <div
+    className="relative pl-12 sm:pl-16 transition-colors duration-300"
+  >
+    <span
+      className="absolute left-[13px] sm:left-[21px] top-8 w-3 h-3 rounded-full border-2 -translate-x-1/2 transition-all duration-300"
+      style={{
+        borderColor: catColor[period.category] || 'var(--color-accent)',
+        background: isOpen ? catColor[period.category] : 'var(--color-ink)',
+      }}
+    />
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={isOpen}
+      data-cursor-hover
+      className="w-full text-left py-6 sm:py-7 flex items-center justify-between gap-4 cursor-pointer focus:outline-none group border-b"
+      style={{ borderColor: 'rgba(243,240,232,0.1)' }}
+    >
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-3 flex-wrap mb-1.5">
+          <span className="font-mono text-xs sm:text-sm font-bold tracking-tight" style={{ color: catColor[period.category] }}>
+            {period.year}
+          </span>
+          <span className="font-heading text-base sm:text-lg font-bold text-paper tracking-tight group-hover:translate-x-0.5 transition-transform">
+            {period.headline}
+          </span>
+        </div>
+        <p className="text-xs sm:text-sm text-paper/45 font-medium truncate">{period.summary}</p>
+      </div>
 
-  const toggleYear = (year) => {
-    setActiveYear((prev) => (prev === year ? null : year));
-  };
+      <div
+        className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full flex items-center justify-center border transition-all duration-300"
+        style={{
+          background: isOpen ? 'var(--color-accent)' : 'transparent',
+          borderColor: isOpen ? 'var(--color-accent)' : 'rgba(243,240,232,0.2)',
+          color: isOpen ? 'var(--color-ink)' : 'var(--color-paper)',
+        }}
+      >
+        {isOpen ? <FiMinus className="w-4 h-4" /> : <FiPlus className="w-4 h-4" />}
+      </div>
+    </button>
+
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          key={`content-${period.id}`}
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden"
+        >
+          <div className="pb-8 pr-2 sm:pr-8">
+            <span
+              className="inline-block text-[10px] uppercase tracking-wider px-2.5 py-1 mb-3"
+              style={{ background: 'rgba(243,240,232,0.06)', color: catColor[period.category] }}
+            >
+              {period.category}
+            </span>
+            <p className="text-xs sm:text-sm md:text-base text-paper/60 leading-relaxed max-w-2xl">{period.description}</p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+);
+
+const Journey = () => {
+  const [activeId, setActiveId] = useState(journeyData[0].id);
+  const spineRef = useRef(null);
+  const trackWrapRef = useRef(null);
+
+  const toggle = (id) => setActiveId((prev) => (prev === id ? null : id));
+
+  useEffect(() => {
+    const wrap = trackWrapRef.current;
+    const spine = spineRef.current;
+    if (!wrap || !spine) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        spine,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: { trigger: wrap, start: 'top 75%', end: 'bottom 60%', scrub: true },
+        }
+      );
+    });
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section
-      id="journey"
-      className="py-20 md:py-28 px-4 sm:px-6 md:px-10 lg:px-16 bg-black text-white transition-colors duration-300 w-full overflow-hidden"
-    >
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12 md:mb-16">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-xs sm:text-sm font-mono font-bold tracking-widest text-gray-400 uppercase">
-              // 05 JOURNEY
-            </span>
-            <span className="h-[1px] w-12 bg-gray-700" />
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <SplitLineReveal
-              as="h2"
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white font-display uppercase"
-            >
-              Growth &amp; Learning
-            </SplitLineReveal>
-            <SplitLineReveal
-              as="p"
-              delay={0.15}
-              className="text-xs sm:text-sm md:text-base text-gray-400 max-w-lg font-sans font-medium leading-relaxed"
-            >
-              Catatan perjalanan belajar, dari bangku sekolah sampai proyek-proyek yang membentuk kemampuan saya sebagai web developer.
+    <section id="journey" className="py-24 md:py-32 px-6 sm:px-10 md:px-16 lg:pl-32 lg:pr-16 w-full overflow-hidden" style={{ background: 'var(--color-ink)' }}>
+      <div className="max-w-4xl mx-auto lg:mx-0">
+        <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-widest block mb-4" style={{ color: 'var(--color-accent)' }}>05 / Growth</span>
+            <SplitLineReveal as="h2" className="font-display font-medium leading-[1] text-paper" style={{ fontSize: 'clamp(2rem, 5vw, 3.75rem)' }}>
+              Perjalanan belajar.
             </SplitLineReveal>
           </div>
+          <SplitLineReveal as="p" delay={0.1} className="text-xs sm:text-sm md:text-base text-paper/50 max-w-xs font-sans leading-relaxed">
+            Dari bangku sekolah sampai proyek yang membentuk kemampuan saya sebagai web developer.
+          </SplitLineReveal>
         </div>
 
-        <div className="border-y border-gray-800 divide-y divide-gray-800">
-          {journeyData.map((period) => {
-            const isOpen = activeYear === period.year;
-            return (
-              <div
-                key={period.id}
-                className={`transition-colors duration-300 ${
-                  isOpen ? 'bg-gray-900/40' : 'bg-transparent hover:bg-gray-900/20'
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => toggleYear(period.year)}
-                  aria-expanded={isOpen}
-                  className="w-full text-left py-6 sm:py-7 md:py-8 px-2 sm:px-4 flex items-center justify-between gap-4 cursor-pointer focus:outline-none transition-colors group"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 md:gap-8 flex-1 min-w-0">
-                    <div className="flex items-center gap-3 shrink-0">
-                      <span
-                        className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                          isOpen ? 'bg-white scale-125' : 'bg-gray-700 group-hover:bg-gray-400'
-                        }`}
-                      />
-                      <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-mono tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
-                        {period.year}
-                      </span>
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2.5 flex-wrap">
-                        <span className="text-base sm:text-lg font-bold font-heading text-gray-100 tracking-tight">
-                          {period.headline}
-                        </span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-gray-400 mt-1 truncate font-medium">
-                        {period.summary}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full flex items-center justify-center border transition-all duration-300 ${
-                      isOpen
-                        ? 'bg-white text-black border-white'
-                        : 'border-gray-800 text-gray-400 group-hover:border-white group-hover:text-white'
-                    }`}
-                  >
-                    {isOpen ? <FiMinus className="w-4 h-4" /> : <FiPlus className="w-4 h-4" />}
-                  </div>
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key={`content-${period.id}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-2 sm:px-4 pb-8 sm:pb-10 pt-2">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                          {period.items.map((item, itemIdx) => (
-                            <div
-                              key={itemIdx}
-                              className="p-5 sm:p-6 bg-gray-900/40 border-l-2 border-white flex flex-col justify-between transition-transform duration-200 hover:-translate-y-0.5"
-                            >
-                              <div>
-                                <div className="flex items-center justify-between gap-2 mb-3">
-                                  <span
-                                    className={`text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-1 ${
-                                      categoryBadgeStyles[item.category] || 'bg-gray-800'
-                                    }`}
-                                  >
-                                    {item.category}
-                                  </span>
-                                  <span className="text-xs font-mono text-gray-400 font-medium">
-                                    {item.period}
-                                  </span>
-                                </div>
-
-                                <h3 className="text-base sm:text-lg font-bold text-white leading-snug mb-1">
-                                  {item.organization}
-                                </h3>
-                                <p className="text-xs sm:text-sm font-semibold text-gray-300 mb-2.5">
-                                  {item.role}
-                                </p>
-                                <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
-                                  {item.description}
-                                </p>
-                              </div>
-
-                              {item.link && (
-                                <div className="mt-4 pt-3 border-t border-gray-800/80 flex items-center justify-end">
-                                  <a
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white hover:underline underline-offset-4"
-                                  >
-                                    <span>Official Website</span>
-                                    <FiArrowUpRight className="w-3.5 h-3.5" />
-                                  </a>
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+        <div ref={trackWrapRef} className="relative">
+          <div className="absolute left-[13px] sm:left-[21px] top-2 bottom-2 w-px" style={{ background: 'rgba(243,240,232,0.1)' }} />
+          <div
+            ref={spineRef}
+            className="absolute left-[13px] sm:left-[21px] top-2 bottom-2 w-px origin-top"
+            style={{ background: 'var(--color-accent)', transform: 'scaleY(0)' }}
+          />
+          {journeyData.map((period) => (
+            <JourneyItem key={period.id} period={period} isOpen={activeId === period.id} onToggle={() => toggle(period.id)} />
+          ))}
         </div>
       </div>
     </section>
