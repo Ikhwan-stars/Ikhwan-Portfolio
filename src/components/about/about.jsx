@@ -5,37 +5,38 @@ import SplitLineReveal from '../animations/SplitLineReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const facts = [
+  { label: 'Siswa SMAN 7 Kab. Tangerang', value: 'Sekolah' },
+  { label: 'Front-End Learner', value: 'Fokus' },
+  { label: 'Back-End & API', value: 'Fokus' },
+];
+
 const About = () => {
   const sectionRef = useRef(null);
-  const contentRef = useRef(null);
-  const overlayRef = useRef(null);
+  const imageWrapRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    const content = contentRef.current;
-    const overlay = overlayRef.current;
-    if (!section || !content || !overlay) return;
+    const imgWrap = imageWrapRef.current;
+    if (!section || !imgWrap) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        overlay,
-        { opacity: 0 },
+        imgWrap,
+        { clipPath: 'inset(100% 0% 0% 0%)' },
         {
-          opacity: 0.95,
-          ease: 'none',
-          scrollTrigger: { trigger: section, start: 'center top', end: 'bottom top', scrub: true },
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 70%' },
         }
       );
-      gsap.fromTo(
-        content,
-        { opacity: 1, scale: 1 },
-        {
-          opacity: 0.05,
-          scale: 0.95,
-          ease: 'none',
-          scrollTrigger: { trigger: section, start: 'center top', end: 'bottom top', scrub: true },
-        }
-      );
+
+      gsap.to(imgWrap.querySelector('img'), {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+      });
     }, section);
 
     return () => ctx.revert();
@@ -44,94 +45,75 @@ const About = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full flex items-center justify-center bg-black text-white py-20 md:py-28 lg:py-36 px-4 sm:px-6 overflow-hidden"
+      className="relative w-full bg-black text-white py-24 md:py-32 lg:py-40 px-6 sm:px-10 md:px-16 lg:pl-32 lg:pr-16 overflow-hidden"
+      style={{ background: 'var(--color-ink)' }}
     >
-      <div ref={overlayRef} className="absolute inset-0 bg-black pointer-events-none z-20 opacity-0 will-change-transform" aria-hidden="true" />
-
-      <div
-        ref={contentRef}
-        className="w-full max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-4 sm:px-8 md:px-12 lg:px-16 gap-10 lg:gap-20 relative z-10 will-change-transform"
-      >
-        {/* Teks Kiri */}
-        <div className="lg:w-3/5 w-full text-left">
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6">
-            <span className="text-xs sm:text-sm font-mono tracking-widest text-gray-400 uppercase font-semibold">
-              // 01 ABOUT
-            </span>
-            <span className="h-[1px] w-8 bg-gray-700 hidden sm:block" />
-            <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
-              TANGERANG, BANTEN, INDONESIA
-            </span>
-          </div>
-
-          <SplitLineReveal
-            as="h2"
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] font-normal leading-[1.3] md:leading-[1.25] tracking-tight text-white font-sans mb-6"
-          >
-            Saya Ikhwan Romadon, Pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
-          </SplitLineReveal>
-
-          <div className="space-y-4 text-sm sm:text-base md:text-lg leading-relaxed text-gray-300 font-sans font-normal max-w-2xl mb-8">
-            <SplitLineReveal delay={0.1}>
-              Di sekolah saya cukup suka pelajaran Informatika, dan dari situ rasa penasaran saya soal dunia teknologi terus tumbuh. Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol, mulai dari menyusun tampilan dengan HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, sampai merancang REST API sendiri dengan Node.js dan menghubungkannya ke layanan lain seperti GitHub API dan Supabase.
-            </SplitLineReveal>
-            <SplitLineReveal delay={0.2}>
-              Saya suka mendalami cara kerja sebuah produk digital secara utuh, dari tampilan yang dilihat pengguna sampai logika yang bekerja di baliknya. Ada semacam kepuasan tersendiri kalau berhasil paham hal yang tadinya bikin bingung.
-            </SplitLineReveal>
-            <SplitLineReveal delay={0.3}>
-              Saya juga orangnya selalu penasaran, senang cari tahu hal-hal baru yang belum saya kuasai, entah itu bahasa pemrograman lain, tools baru, atau sekadar cara developer lain menyelesaikan masalah. Buat saya, belajar coding bukan cuma soal ngoding, tapi juga soal terus melatih cara berpikir lewat proyek-proyek kecil.
-            </SplitLineReveal>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6 sm:gap-8 font-mono text-xs text-gray-400 py-4 border-y border-gray-800">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span className="text-gray-200 uppercase tracking-wider font-semibold">Siswa SMAN 7 Kab. Tangerang</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span className="text-gray-200 uppercase tracking-wider font-semibold">Front-End Learner</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              <span className="text-gray-200 uppercase tracking-wider font-semibold">Back-End & API</span>
-            </div>
-          </div>
+      <div className="max-w-6xl mx-auto lg:mx-0 lg:max-w-none">
+        <div className="flex items-center gap-3 mb-10 md:mb-14">
+          <span className="font-mono text-xs uppercase tracking-widest" style={{ color: 'var(--color-accent)' }}>01 / About</span>
+          <span className="h-px flex-1" style={{ background: 'rgba(243,240,232,0.15)' }} />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-paper/40 hidden sm:inline">Tangerang, Banten, ID</span>
         </div>
 
-        {/* Foto Kanan */}
-        <div className="lg:w-2/5 w-full flex flex-col items-center lg:items-end">
-          <div className="relative w-52 h-70 sm:w-60 sm:h-80 md:w-68 md:h-92 lg:w-76 lg:h-[400px] group cursor-pointer">
-            <div className="absolute -top-3.5 left-0 right-0 h-[1px] bg-gray-800 group-hover:bg-gray-600 transition-colors duration-300" />
-            <div className="absolute -bottom-3.5 left-0 right-0 h-[1px] bg-gray-800 group-hover:bg-gray-600 transition-colors duration-300" />
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-20 items-start">
+          <div>
+            <SplitLineReveal
+              as="h2"
+              className="font-display font-medium leading-[1.15] text-paper mb-8"
+              style={{ fontSize: 'clamp(1.6rem, 3.4vw, 2.75rem)' }}
+            >
+              Saya Ikhwan Romadon, pelajar SMAN 7 Kabupaten Tangerang yang sedang membangun jalan menjadi Web Developer.
+            </SplitLineReveal>
 
-            {/* Ganti /images/about.jpg dengan foto kamu */}
-            <img
-              src="/images/about.jpg"
-              alt=""
-              aria-hidden="true"
-              width="320"
-              height="400"
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover absolute top-4 left-4 opacity-25 transition-all duration-500 group-hover:top-0 group-hover:left-0 brightness-75 pointer-events-none"
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
-            <div className="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-[1.02] bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden">
+            <div className="space-y-5 text-sm sm:text-base leading-relaxed text-paper/60 font-sans max-w-2xl">
+              <SplitLineReveal delay={0.05}>
+                Di sekolah saya cukup suka pelajaran Informatika, dan dari situ rasa penasaran saya soal dunia teknologi terus tumbuh. Di luar jam sekolah, saya belajar mandiri membangun aplikasi web dari nol — mulai dari HTML, CSS, dan Tailwind CSS, menghidupkannya dengan JavaScript, sampai merancang REST API sendiri dengan Node.js dan menghubungkannya ke layanan seperti GitHub API dan Supabase.
+              </SplitLineReveal>
+              <SplitLineReveal delay={0.1}>
+                Saya suka mendalami cara kerja sebuah produk digital secara utuh, dari tampilan yang dilihat pengguna sampai logika yang bekerja di baliknya.
+              </SplitLineReveal>
+              <SplitLineReveal delay={0.15}>
+                Selalu penasaran, senang cari tahu hal baru — bahasa pemrograman lain, tools baru, atau cara developer lain menyelesaikan masalah. Buat saya, belajar coding bukan cuma soal ngoding, tapi juga melatih cara berpikir lewat proyek-proyek kecil.
+              </SplitLineReveal>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-3 pt-8 border-t" style={{ borderColor: 'rgba(243,240,232,0.12)' }}>
+              {facts.map((f, i) => (
+                <div key={i} className="flex flex-col gap-1.5">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-paper/35">{f.value}</span>
+                  <span className="text-xs sm:text-sm font-heading font-semibold text-paper/85">{f.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:sticky lg:top-28">
+            <div
+              ref={imageWrapRef}
+              className="relative w-full max-w-sm mx-auto lg:mx-0 lg:ml-auto aspect-[4/5] overflow-hidden border"
+              style={{ borderColor: 'rgba(243,240,232,0.12)' }}
+            >
               <img
                 src="/images/about.jpg"
                 alt="Ikhwan Romadon"
-                width="320"
-                height="400"
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover scale-110"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextSibling.style.display = 'flex';
                 }}
               />
-              <span className="hidden font-display text-6xl text-white select-none">IR</span>
+              <div className="hidden w-full h-full items-center justify-center absolute inset-0" style={{ background: '#141410' }}>
+                <span className="font-display text-6xl text-paper/25 select-none">IR</span>
+              </div>
+              <div
+                className="absolute bottom-0 left-0 right-0 px-4 py-3 font-mono text-[10px] uppercase tracking-widest flex justify-between"
+                style={{ background: 'rgba(10,10,8,0.7)', color: 'var(--color-accent)' }}
+              >
+                <span>Ikhwan.jpg</span>
+                <span>2025</span>
+              </div>
             </div>
           </div>
         </div>
